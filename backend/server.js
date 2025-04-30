@@ -11,7 +11,7 @@ connectDb();
 
 app.use(
 	cors({
-		origin: ["https://pastr.vercel.app"],
+		origin: [process.env.FRONTEND_URL],
 		methods: ["GET", "POST"],
 		credentials: true,
 	})

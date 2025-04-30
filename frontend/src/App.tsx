@@ -4,7 +4,7 @@ import Toast from "typescript-toastify";
 import { ToastType } from "typescript-toastify/lib/type/type";
 
 const api = axios.create({
-	baseURL: "http://localhost:5000",
+	baseURL: "https://pastr.vercel.app",
 });
 
 type ThemeType = "light" | "dark";
