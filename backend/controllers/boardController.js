@@ -7,7 +7,6 @@ const generateId = require('../generateId')
 // @access public
 const getBoard = asyncHandler( async (req, res) => {
     const id = req.params.id
-    console.log("board, ", id)
     if (!id) {
         res.status(400)
         throw new Error("Missing Board ID");
@@ -17,13 +16,11 @@ const getBoard = asyncHandler( async (req, res) => {
         res.status(404)
         throw new Error("Board Not Found");
     }
-    res.status(200)
-    res.json(board)
+    res.status(200).json(board)
 })
 
 const uploadBoard = asyncHandler(async (req, res) => {
     const id = await generateId();
-    console.log("Generated ID:", id); 
     const {content} = req.body;
     if (!content) {
         res.status(400)
@@ -31,11 +28,9 @@ const uploadBoard = asyncHandler(async (req, res) => {
     }
     const uploadedDoc = await Board.create({shortId: id, content});
     if (!uploadedDoc) {
-        console.log('uploaded doc - ', uploadedDoc)
         res.status(400);
         throw new Error("Uploading Board Failed")
     }
-    console.log("uploaded done");
 	res.status(200).json({ uploadedDoc });
 })
 
@@ -51,7 +46,6 @@ const uploadBoard = asyncHandler(async (req, res) => {
 //         throw new Error(`Document with ID ${id} Not Found`)
 //     }
 //     const content = req.body
-//     console.log(content)
 //     const updatedDoc = await Board.findOneAndUpdate(
 //         {shortId: id},
 //         {$set: content},

@@ -34,7 +34,6 @@ export default function App() {
     const [theme, setTheme] = useState<ThemeType>(localTheme);
 
     useEffect(() => {
-        console.log(theme)
         const html = document.querySelector('html')
         if (html) {
             html?.classList.remove("light", "dark")
