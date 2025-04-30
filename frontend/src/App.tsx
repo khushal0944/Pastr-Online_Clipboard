@@ -4,7 +4,7 @@ import Toast from "typescript-toastify";
 import { ToastType } from "typescript-toastify/lib/type/type";
 
 const api = axios.create({
-	baseURL: "https://pastr.vercel.app",
+	baseURL: "https://online-clipboard-99xm.onrender.com",
 });
 
 type ThemeType = "light" | "dark";
