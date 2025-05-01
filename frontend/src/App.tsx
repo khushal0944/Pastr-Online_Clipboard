@@ -43,8 +43,8 @@ function App() {
 		localStorage.setItem("theme", JSON.stringify(theme));
 	}, [theme]);
 
-    let prevContent = useRef<string>("");
-
+	let prevContent = useRef<string>("");
+	let normalText = useRef<string>("");
 	const [tab, setTab] = useState<"save" | "retrieve">("save");
 	const [retrieveContent, setRetrieveContent] = useState<string>("");
 	const [retrieveId, setRetrieveId] = useState<string | null>(null);
@@ -52,13 +52,13 @@ function App() {
 	const [boardId, setBoardId] = useState<string | null>(null);
 
 	const handleContent = async () => {
-        if (prevContent.current === content) return;
+		if (prevContent.current === content) return;
 		if (!content || content.trim() === "") {
 			showToast("Content Empty or Invalid", "error");
 			return;
 		}
 		try {
-            prevContent.current = content
+			prevContent.current = content;
 			const data = await api.post("/api/v1/board", {
 				content,
 			});
@@ -75,7 +75,7 @@ function App() {
 			return;
 		}
 		try {
-			const data = await api.get(`/api/v1/board/${retrieveId}`)
+			const data = await api.get(`/api/v1/board/${retrieveId}`);
 			setRetrieveContent(data.data.content);
 		} catch (error) {
 			showToast("Board Not Found", "error");
@@ -89,6 +89,32 @@ function App() {
 			.then(() =>
 				showToast("Retrieve Text Copied Successfully", "success")
 			);
+	}
+
+	function handleSelect(opt: string) {
+		switch (opt) {
+			case "original":
+				setContent(normalText.current);
+				break;
+			case "uppercase":
+				setContent(content.toUpperCase());
+				break;
+			case "lowercase":
+				setContent(content.toLowerCase());
+				break;
+			case "capitalize":
+				setContent(
+					content.replace(
+						/\w\S*/g,
+						(word) =>
+							word.charAt(0).toUpperCase() +
+							word.slice(1).toLowerCase()
+					)
+				);
+				break;
+			default:
+				break;
+		}
 	}
 
 	return (
@@ -151,7 +177,7 @@ function App() {
 								placeholder="Enter your text here..."
 								value={content}
 								style={{ minHeight: "120px" }}
-								onChange={(e) => setContent(e.target.value)}
+								onChange={(e) => {setContent(e.target.value); normalText.current = content;}}
 							></textarea>
 						</div>
 
@@ -166,6 +192,15 @@ function App() {
 							>
 								Clear
 							</button>
+							<select
+								onChange={(e) => handleSelect(e.target.value)}
+                                className="outline-none"
+							>
+								<option value={"original"}>Original</option>
+								<option value={"uppercase"}>Uppercase</option>
+								<option value={"lowercase"}>Lowercase</option>
+								<option value={"capitalize"}>Capitalize</option>
+							</select>
 							<button
 								onClick={handleContent}
 								className="px-5 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
