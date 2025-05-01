@@ -104,16 +104,16 @@ function App() {
 	function handleRetrieveSelect(opt: string) {
 		switch (opt) {
 			case "original":
-				setContent(normalRetrieveText.current);
+				setRetrieveContent(normalRetrieveText.current);
 				break;
 			case "uppercase":
-				setContent(retrieveContent.toUpperCase());
+				setRetrieveContent(retrieveContent.toUpperCase());
 				break;
 			case "lowercase":
-				setContent(retrieveContent.toLowerCase());
+				setRetrieveContent(retrieveContent.toLowerCase());
 				break;
 			case "capitalize":
-				setContent(
+				setRetrieveContent(
 					retrieveContent.replace(
 						/\w\S*/g,
 						(word) =>
