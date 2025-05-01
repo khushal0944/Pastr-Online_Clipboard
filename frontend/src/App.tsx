@@ -157,7 +157,11 @@ function App() {
 
 						<div className="flex justify-between">
 							<button
-								onClick={() => {setContent(""); setBoardId(null); prevContent.current = ""}}
+								onClick={() => {
+									setContent("");
+									setBoardId(null);
+									prevContent.current = "";
+								}}
 								className="px-5 py-2  dark:text-white  border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
 							>
 								Clear
@@ -241,23 +245,23 @@ function App() {
 							Enter the 4-digit ID to retrieve your saved text
 						</p>
 
-						<div className="flex mb-6">
+						<div className="flex mb-6 mx-auto w-11/12 fixRetrieveBtn">
 							<input
 								type="text"
-								className="flex-1 p-3 border dark:bg-gray-100 border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-gray-200 text-center text-xl font-mono"
+								className="flex-1 p-3 w-full border dark:bg-gray-100 max-[500px]:rounded-lg border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-gray-200 text-center text-xl font-mono"
 								placeholder="Enter Board ID to retrieve"
 								value={retrieveId || ""}
-								onChange={(e) =>
-									{setRetrieveId(
+								onChange={(e) => {
+									setRetrieveId(
 										e.target.value
 											.replace(/[^0-9]/g, "")
 											.slice(0, 4)
 									);
-                                    setRetrieveContent("")}
-								}
+									setRetrieveContent("");
+								}}
 							/>
 							<button
-								className="px-6 py-2 bg-black text-white rounded-r-md hover:bg-gray-800 transition-colors"
+								className="px-3 py-2 max-[500px]:mt-2 max-[500px]:rounded-lg bg-black text-white rounded-r-md hover:bg-gray-800 transition-colors"
 								onClick={handleRetrival}
 							>
 								Retrieve
