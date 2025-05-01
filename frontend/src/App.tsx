@@ -82,8 +82,8 @@ function App() {
         setRetrieveLoading(true);
 		try {
 			const data = await api.get(`/api/v1/board/${retrieveId}`);
-            if(data) setSaveLoading(false)
-                setRetrieveLoading(data.data.content);
+            if(data) setRetrieveLoading(false);
+            setRetrieveContent(data.data.content);
         } catch (error) {
             showToast("Board Not Found", "error");
             if(error) setRetrieveLoading(false)
@@ -310,7 +310,7 @@ function App() {
 								className="px-3 py-2 max-[500px]:mt-2 max-[500px]:rounded-lg bg-black text-white rounded-r-md hover:bg-gray-800 transition-colors"
 								onClick={handleRetrival}
 							>
-								{retrieveLoading ? "Retrieving..." : "Retrieve Text"}
+								{retrieveLoading ? "Retrieving.." : "Retrieve Text"}
 							</button>
 						</div>
 					</div>
