@@ -45,6 +45,7 @@ function App() {
 
 	let prevContent = useRef<string>("");
 	let normalText = useRef<string>("");
+	let normalRetrieveText = useRef<string>("");
 	const [tab, setTab] = useState<"save" | "retrieve">("save");
 	const [retrieveContent, setRetrieveContent] = useState<string>("");
 	const [retrieveId, setRetrieveId] = useState<string | null>(null);
@@ -84,6 +85,7 @@ function App() {
 			const data = await api.get(`/api/v1/board/${retrieveId}`);
             if(data) setRetrieveLoading(false);
             setRetrieveContent(data.data.content);
+            normalRetrieveText.current = data.data.content
         } catch (error) {
             showToast("Board Not Found", "error");
             if(error) setRetrieveLoading(false)
@@ -99,6 +101,31 @@ function App() {
 			);
 	}
 
+	function handleRetrieveSelect(opt: string) {
+		switch (opt) {
+			case "original":
+				setContent(normalRetrieveText.current);
+				break;
+			case "uppercase":
+				setContent(retrieveContent.toUpperCase());
+				break;
+			case "lowercase":
+				setContent(retrieveContent.toLowerCase());
+				break;
+			case "capitalize":
+				setContent(
+					retrieveContent.replace(
+						/\w\S*/g,
+						(word) =>
+							word.charAt(0).toUpperCase() +
+							word.slice(1).toLowerCase()
+					)
+				);
+				break;
+			default:
+				break;
+		}
+	}
 	function handleSelect(opt: string) {
 		switch (opt) {
 			case "original":
@@ -310,7 +337,9 @@ function App() {
 								className="px-3 py-2 max-[500px]:mt-2 max-[500px]:rounded-lg bg-black text-white rounded-r-md hover:bg-gray-800 transition-colors"
 								onClick={handleRetrival}
 							>
-								{retrieveLoading ? "Retrieving.." : "Retrieve Text"}
+								{retrieveLoading
+									? "Retrieving.."
+									: "Retrieve Text"}
 							</button>
 						</div>
 					</div>
@@ -335,7 +364,24 @@ function App() {
 								style={{ minHeight: "50px" }}
 							></textarea>
 
-							<div className="flex justify-end">
+							<div className="flex justify-between">
+								<select
+									onChange={(e) =>
+										handleRetrieveSelect(e.target.value)
+									}
+									className="outline-none min-h-10 border border-gray-400 cursor-pointer m-1 text-center bg-gray-50 dark:bg-gray-700 dark:text-white rounded-md"
+								>
+									<option value={"original"}>Original</option>
+									<option value={"uppercase"}>
+										Uppercase
+									</option>
+									<option value={"lowercase"}>
+										Lowercase
+									</option>
+									<option value={"capitalize"}>
+										Capitalize
+									</option>
+								</select>
 								<button
 									onClick={copyRetrival}
 									className="px-5 py-2 bg-white border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 transition-colors flex items-center"
