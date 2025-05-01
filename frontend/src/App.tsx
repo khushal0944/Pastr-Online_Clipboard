@@ -50,6 +50,8 @@ function App() {
 	const [retrieveId, setRetrieveId] = useState<string | null>(null);
 	const [content, setContent] = useState<string>("");
 	const [boardId, setBoardId] = useState<string | null>(null);
+    const [saveLoading, setSaveLoading] = useState(false);
+    const [retrieveLoading, setRetrieveLoading] = useState(false);
 
 	const handleContent = async () => {
 		if (prevContent.current === content) return;
@@ -58,14 +60,17 @@ function App() {
 			return;
 		}
 		try {
-			prevContent.current = content;
+			setSaveLoading(true)
+            prevContent.current = content;
 			const data = await api.post("/api/v1/board", {
-				content,
+                content,
 			});
-			const filteredData: APIResponseType = data.data.uploadedDoc;
-			setBoardId(filteredData.shortId);
+            if (data) setSaveLoading(false)
+                const filteredData: APIResponseType = data.data.uploadedDoc;
+            setBoardId(filteredData.shortId);
 		} catch (error) {
-			showToast("Data Uploding Error", "error");
+            showToast("Data Uploding Error", "error");
+            if (error) setSaveLoading(false)
 		}
 	};
 
@@ -74,11 +79,14 @@ function App() {
 			showToast("Invalid Board ID", "error");
 			return;
 		}
+        setRetrieveLoading(true);
 		try {
 			const data = await api.get(`/api/v1/board/${retrieveId}`);
-			setRetrieveContent(data.data.content);
-		} catch (error) {
-			showToast("Board Not Found", "error");
+            if(data) setSaveLoading(false)
+                setRetrieveLoading(data.data.content);
+        } catch (error) {
+            showToast("Board Not Found", "error");
+            if(error) setRetrieveLoading(false)
 		}
 	};
 
@@ -177,24 +185,23 @@ function App() {
 								placeholder="Enter your text here..."
 								value={content}
 								style={{ minHeight: "120px" }}
-								onChange={(e) => {setContent(e.target.value); normalText.current = content;}}
+								onChange={(e) => {
+									setContent(e.target.value);
+									normalText.current = content;
+								}}
 							></textarea>
 						</div>
 
-						<div className="flex justify-between">
+						<div className="flex justify-between max-[400px]:flex-col">
 							<button
-								onClick={() => {
-									setContent("");
-									setBoardId(null);
-									prevContent.current = "";
-								}}
-								className="px-5 py-2  dark:text-white  border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+								onClick={handleContent}
+								className="px-5 py-2 bg-black m-1 text-white border border-gray-400 rounded-md hover:bg-gray-800 transition-colors"
 							>
-								Clear
+								{saveLoading ? "Saving..." : "Save Text"}
 							</button>
 							<select
 								onChange={(e) => handleSelect(e.target.value)}
-                                className="outline-none"
+								className="outline-none min-h-10 border border-gray-400 cursor-pointer m-1 text-center bg-gray-50 dark:bg-gray-700 dark:text-white rounded-md"
 							>
 								<option value={"original"}>Original</option>
 								<option value={"uppercase"}>Uppercase</option>
@@ -202,10 +209,14 @@ function App() {
 								<option value={"capitalize"}>Capitalize</option>
 							</select>
 							<button
-								onClick={handleContent}
-								className="px-5 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors"
+								onClick={() => {
+									setContent("");
+									setBoardId(null);
+									prevContent.current = "";
+								}}
+								className="px-5 py-2 m-1 dark:text-white border border-gray-400 rounded-md text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
 							>
-								Save Text
+								Clear
 							</button>
 						</div>
 					</div>
@@ -299,7 +310,7 @@ function App() {
 								className="px-3 py-2 max-[500px]:mt-2 max-[500px]:rounded-lg bg-black text-white rounded-r-md hover:bg-gray-800 transition-colors"
 								onClick={handleRetrival}
 							>
-								Retrieve
+								{retrieveLoading ? "Retrieving..." : "Retrieve Text"}
 							</button>
 						</div>
 					</div>
