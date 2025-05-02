@@ -99,5 +99,6 @@ Pastr is a web application that allows users to save and retrieve text snippets 
 ---
 
 <div align="center">
-  <p>Enjoy using **Pastr**! 🎉</p>
+  <p>Enjoy using <strong>Pastr</strong>! 🎉</p>
 </div>
+
