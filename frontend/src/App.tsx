@@ -4,7 +4,7 @@ import Toast from "typescript-toastify";
 import { ToastType } from "typescript-toastify/lib/type/type";
 
 const api = axios.create({
-	baseURL: "https://online-clipboard-99xm.onrender.com",
+	baseURL: import.meta.env.VITE_API_URL
 });
 
 type ThemeType = "light" | "dark";
@@ -214,7 +214,7 @@ function App() {
 								style={{ minHeight: "120px" }}
 								onChange={(e) => {
 									setContent(e.target.value);
-									normalText.current = content;
+									normalText.current = e.target.value;
 								}}
 							></textarea>
 						</div>
