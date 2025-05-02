@@ -1,4 +1,4 @@
-# Pastr - Online Clipboard
+# Pastr - Online Clipboard 📋
 
 Pastr is a web application that allows users to save and retrieve text snippets using a unique 4-digit ID. The saved text is stored temporarily and can be accessed within an hour. This project is built using **React**, **TypeScript**, **Vite**, **TailwindCSS**, and **Express.js** with a **MongoDB** backend.
 
@@ -16,8 +16,9 @@ Pastr is a web application that allows users to save and retrieve text snippets 
 ### 1. Save Text
 1. Navigate to the **Save Text** tab.
 2. Enter your text in the input box.
-3. Click the **Save Text** button.
-4. A unique 4-digit ID will be generated. Use this ID to retrieve your text later.
+3. Use the transformation options (uppercase, lowercase, capitalize).
+4. Click the **Save Text** button.
+5. A unique 4-digit ID will be generated. Use this ID to retrieve your text later.
 
 ### 2. Retrieve Text
 1. Navigate to the **Retrieve Text** tab.
@@ -95,15 +96,6 @@ Pastr is a web application that allows users to save and retrieve text snippets 
 - `middleware/`: Contains custom middleware like error handling.
 - `config/`: Contains database connection logic.
 
-## Future Enhancements
-- Add user authentication for secure access.
-- Allow users to update or delete saved text.
-- Extend the expiration time for saved text.
-- Add support for file uploads.
-
-## License
-This project is licensed under the MIT License.
-
 ---
 
-Enjoy using **Pastr**! 🎉
+<center>Enjoy using **Pastr**! 🎉</center>
