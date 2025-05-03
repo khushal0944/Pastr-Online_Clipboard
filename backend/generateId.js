@@ -2,14 +2,12 @@ const Board = require("./models/boardModel");
 
 
 const generateId = async () => {        
-        let unique = false;
         let id;
-        while (!unique) {
+        while (true) {
             id = String(Math.floor(1000 + Math.random() * 9000));
             const isPresent = await Board.findOne({shortId: id});
-            if (!isPresent) unique = true;
+            if (!isPresent) return id;
         }
-        return id;
 }
 
 module.exports = generateId
