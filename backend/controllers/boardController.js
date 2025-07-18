@@ -2,9 +2,12 @@ const asyncHandler = require('express-async-handler');
 const Board = require('../models/boardModel');
 const generateId = require('../generateId')
 
-// @desc Register a Board
-// @route GET /api/board
-// @access public
+/**
+ * @desc Get a Board
+ * @route GET /api/board/:id
+ * @access public
+*/
+
 const getBoard = asyncHandler( async (req, res) => {
     const id = req.params.id
     if (!id) {
@@ -18,6 +21,12 @@ const getBoard = asyncHandler( async (req, res) => {
     }
     res.status(200).json(board)
 })
+
+/**
+ * @desc Register a Board
+ * @route POST /api/board
+ * @access public
+*/
 
 const uploadBoard = asyncHandler(async (req, res) => {
     const id = await generateId();
@@ -33,39 +42,5 @@ const uploadBoard = asyncHandler(async (req, res) => {
     }
 	res.status(200).json({ uploadedDoc });
 })
-
-// const updateBoard = asyncHandler( async (req, res) => {
-//     const id = req.params.id;
-//         if (!id) {
-// 			res.status(400);
-// 			throw new Error("Missing ID");
-// 		}
-//     const findDoc = await Board.findOne({shortId: id})
-//     if (!findDoc) {
-//         res.status(404)
-//         throw new Error(`Document with ID ${id} Not Found`)
-//     }
-//     const content = req.body
-//     const updatedDoc = await Board.findOneAndUpdate(
-//         {shortId: id},
-//         {$set: content},
-//         {new: true}
-//     )
-//     res.json({updatedDoc})
-// })
-
-// const deleteBoard = asyncHandler(async (req, res) => {
-//     const id = req.params.id;
-//     if (!id) {
-//         res.status(400);
-//         throw new Error("Missing ID")
-//     }
-//     const delDoc = await Board.findOneAndDelete({shortId: id});
-//     if (!delDoc) {
-// 		res.status(404);
-// 		throw new Error("Document Not Found");
-// 	}
-//     res.json(delDoc)
-// })
 
 module.exports = {getBoard, uploadBoard}

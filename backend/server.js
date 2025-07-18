@@ -9,11 +9,11 @@ const port = process.env.PORT || 3000;
 
 connectDb();
 
-console.log("Allowed CORS Origin:", process.env.FRONTEND_URL);
+console.log("Allowed CORS Origin:", process.env.DEV_FRONTEND_URL);
 
 app.use(
 	cors({
-		origin: [process.env.FRONTEND_URL],
+		origin: [process.env.DEV_FRONTEND_URL, process.env.PROD_FRONTEND_URL],
 		methods: ["GET", "POST"],
 		credentials: true,
 	})
