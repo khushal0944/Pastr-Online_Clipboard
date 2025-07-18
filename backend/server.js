@@ -3,7 +3,7 @@ require('dotenv').config();
 const cors = require('cors')
 const connectDb = require('./config/connectDb')
 const errorHandler = require('./middleware/errorHandler');
-const backendAwake = require('./controllers/backendAwake');
+const backendAwake = require('./routes/backendAwake');
 
 const app = express();
 const port = process.env.PORT || 3000;
