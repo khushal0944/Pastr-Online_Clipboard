@@ -41,7 +41,11 @@ Pastr is a web application that allows users to save and retrieve text snippets 
    ```bash
    npm install
    ```
-3. Start the development server:
+3. Create a `.env` file in the `backend` directory with the following variables:
+   ```env
+   VITE_API_URL=<your_backend_url>
+   ```
+4. Start the development server:
    ```bash
    npm run dev
    ```
@@ -59,7 +63,8 @@ Pastr is a web application that allows users to save and retrieve text snippets 
    ```env
    PORT=3000
    MONGODB_URL=<your_mongodb_connection_string>
-   FRONTEND_URL=http://localhost:5173
+   DEV_FRONTEND_URL=http://localhost:5173
+   PROD_FRONTEND_URL=<your_forntend_url>
    ```
 4. Start the backend server:
    ```bash
