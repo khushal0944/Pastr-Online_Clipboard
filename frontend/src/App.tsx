@@ -50,7 +50,6 @@ function App() {
 
 	const handleNormalTextUpdate = (text: string) => {
 		normalText.current = text;
-        console.log(normalText.current)
 	};
 
 	const handleSave = async () => {

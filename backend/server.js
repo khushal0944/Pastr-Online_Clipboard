@@ -2,14 +2,13 @@ const express = require('express')
 require('dotenv').config();
 const cors = require('cors')
 const connectDb = require('./config/connectDb')
-const errorHandler = require('./middleware/errorHandler')
+const errorHandler = require('./middleware/errorHandler');
+const backendAwake = require('./controllers/backendAwake');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 connectDb();
-
-console.log("Allowed CORS Origin:", process.env.DEV_FRONTEND_URL);
 
 app.use(
 	cors({
@@ -20,6 +19,7 @@ app.use(
 );
 app.use(express.json())
 
+app.get('/check', backendAwake)
 app.use("/api/v1", require('./routes/boardRoute'))
 app.use(errorHandler)
 
