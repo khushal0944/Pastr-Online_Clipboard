@@ -1,4 +1,3 @@
-import { RefObject } from "react";
 import { TextTransformSelect } from "./TextTransformSelect";
 import { CopyButton } from "./CopyButton";
 import { showToast } from "../utils/toast";
