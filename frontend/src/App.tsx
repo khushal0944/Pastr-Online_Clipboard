@@ -156,6 +156,7 @@ function App() {
 					)}
 				</>
 			)}
+			<h1 className="dark:text-white text-center">Made with ❤️ by Khushal Kumar</h1>
 		</div>
 	);
 }
